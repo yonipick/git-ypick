@@ -1,2 +1,3 @@
 # git-ypick
-my simple rp for home projects
+Course Data Analysis with Open Source Tools 65006
+
