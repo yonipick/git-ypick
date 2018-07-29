@@ -67,7 +67,6 @@ print(col_var2)
 
 
 # Q3 ----------------------------------------------------------------------
-setwd("C:/Users/ypick/MyPrivate/msc/open code course/hw/sol1")
 data <- read.csv("2017 World Happiness Report.csv",header = TRUE,sep = ',')
 
 #number of observation 
