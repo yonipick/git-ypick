@@ -42,6 +42,8 @@ t1 <- system.time(mean_and_var(y))['elapsed']
 print(t1)
 t2 <- system.time(mean_and_var(y,use.sum = FALSE))['elapsed']
 print(t2)
+#' we see that when use.sum set to true it faster then when use.sum set to false
+
 
 # Q2 ----------------------------------------------------------------------
 
@@ -83,9 +85,9 @@ sapply(test_data, class)
 #' The diffrent regions in data
 levels((test_data$Region))
 #' the mim\max\mean happiness score
-summary(test_data$Happiness)
+summary(test_data$Happiness)[c('Min.','Max.','Mean')]
 
-library(ggplot2)
+# library(ggplot2)
 #' need to improved
 p1 <- ggplot(data = test_data,mapping = aes(x=test_data$Economy,y=test_data$Happiness))+ geom_point(aes(color= 'cly'))+ geom_smooth(method = 'lm')+ xlab("Economy")+ ylab("Happiness")
 p2 <- ggplot(data = test_data,mapping = aes(x=test_data$Family,y=test_data$Happiness))+ geom_point(aes(color= 'r'))+ geom_smooth(method = 'lm')+ xlab("Family")+ ylab("Happiness")
@@ -93,11 +95,11 @@ p3 <- ggplot(data = test_data,mapping = aes(x=test_data$Health,y=test_data$Happi
 p4 <- ggplot(data = test_data,mapping = aes(x=test_data$Freedom,y=test_data$Happiness))+ geom_point(aes(color= 'r'))+ geom_smooth(method = 'lm')+ xlab("Freedom")+ ylab("Happiness")
 p5 <- ggplot(data = test_data,mapping = aes(x=test_data$Generosity,y=test_data$Happiness))+ geom_point(aes(color= 'r'))+ geom_smooth(method = 'lm')+ xlab("Generosity")+ ylab("Happiness")
 p6 <- ggplot(data = test_data,mapping = aes(x=test_data$Trust,y=test_data$Happiness))+ geom_point(aes(color= 'r'))+ geom_smooth(method = 'lm')+ xlab("Trust")+ ylab("Happiness")
-
+# library(ggpubr)
 ggarrange(p1,p2,p3,p4,p5,p6, ncol = 2,nrow = 3) 
 
 #' What can you tell from the plots?
-#' we can see that in corrletion between happines and Economy, Family, Health and Freedom 
+#' we can see that in corrletion between happines and Economy, Family, Health
 
 ggplot(test_data,aes(x=test_data$Economy,y=test_data$Happiness, color = test_data$Region)) + geom_point() + 
   labs(x="Economy",y="Happiness") +
@@ -105,10 +107,11 @@ ggplot(test_data,aes(x=test_data$Economy,y=test_data$Happiness, color = test_dat
 
 
 
-ggplot(data = test_data,aes(Region)) + geom_bar(aes(fill = Region))
+ggplot(data = test_data,aes(Region)) + coord_flip() + geom_bar(aes(fill = Region))
 
-ggplot(data = test_data,aes(x=Region, y=Happiness)) + 
-  geom_boxplot(mapping = aes(x = reorder(Region,Happiness,FUN=median),y=Happiness)) +
+ggplot(data = test_data,aes(x=Region, y=Happiness)) +
+  coord_flip() +
+  geom_boxplot(mapping = aes(x = reorder(Region,Happiness,FUN=mean),y=Happiness)) +
   geom_boxplot(aes(fill = Region)) 
 
 #' Which Region has the most variability in Happiness?
